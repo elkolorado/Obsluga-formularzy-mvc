@@ -1,0 +1,60 @@
+﻿@model form.Models.Form;
+
+@{
+    ViewData["Title"] = "Form";
+}
+<form class="form needs-validation" novalidate asp-action="Form" asp-action="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="Name" placeholder="Twoje imię"/>
+        <label asp-for="Name">Twoje imię</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="Surname" placeholder="Nazwisko" />
+        <label asp-for="Surname">Nazwisko</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input class="form-control" asp-for="Email" placeholder="example@gmail.com" />
+        <label asp-for="Email">Twój email</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" asp-for="Password" placeholder="Hasło" />
+        <label asp-for="Name">Hasło</label>
+    </div>
+
+    <div class="form-floating mb-3">
+        <select class="form-control" asp-for="City"
+                asp-items="Html.GetEnumSelectList<Form.Cities>()">
+        </select>
+        <label asp-for="City">Miasto</label>
+
+    </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    <div>
+    </div>
+</form>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
