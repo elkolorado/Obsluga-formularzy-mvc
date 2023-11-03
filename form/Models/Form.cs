@@ -17,7 +17,7 @@ namespace form.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Prosze podaj haslo")]
-        [RegularExpression("(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)", ErrorMessage = "Hasło musi zawierać przynajmniej jedna cyfra, jedna duża litera i jedna\r\nmała litera")]
+        [RegularExpression("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$", ErrorMessage = "Hasło musi zawierać przynajmniej jedna cyfra, jedna duża litera i jedna\r\nmała litera")]
         public string Password { get; set; }
 
         [Required(ErrorMessage = "Powtórz hasło")]
@@ -33,7 +33,7 @@ namespace form.Models
 
         [Required(ErrorMessage = "Wybierz jedno z 5 dostępnych miast")]
         [EnumDataType(typeof(Cities), ErrorMessage = "Dostępne miasta to: Kraków, Warszawa, Gdańsk, Wrocław, Katowice")]
-        public string City { get; set; }
+        public Cities City { get; set; }
 
         public enum Cities
         {

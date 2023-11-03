@@ -3,39 +3,91 @@
 @{
     ViewData["Title"] = "Form";
 }
-<form class="form needs-validation" novalidate asp-action="Form" asp-action="post">
-    <div asp-validation-summary="All"></div>
+<div class="row row-cols-2">
+    <form class="form needs-validation" novalidate asp-action="Form" asp-action="post"
+          oninput='PasswordCheck.setCustomValidity(PasswordCheck.value != Password.value ? "Passwords do not match." : "")'>
+        <div asp-validation-summary="All"></div>
 
-    <div class="form-floating mb-3">
-        <input class="form-control" asp-for="Name" placeholder="Twoje imię"/>
-        <label asp-for="Name">Twoje imię</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input class="form-control" asp-for="Surname" placeholder="Nazwisko" />
-        <label asp-for="Surname">Nazwisko</label>
-    </div>
-    <div class="form-floating mb-3">
-        <input class="form-control" asp-for="Email" placeholder="example@gmail.com" />
-        <label asp-for="Email">Twój email</label>
-    </div>
+        <div class="row">
 
-    <div class="form-floating mb-3">
-        <input type="password" class="form-control" asp-for="Password" placeholder="Hasło" />
-        <label asp-for="Name">Hasło</label>
-    </div>
 
-    <div class="form-floating mb-3">
-        <select class="form-control" asp-for="City"
-                asp-items="Html.GetEnumSelectList<Form.Cities>()">
-        </select>
-        <label asp-for="City">Miasto</label>
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <input minlength=2 class="form-control" asp-for="Name" placeholder="Twoje imię" required />
+                    <label asp-for="Name">Twoje imię</label>
+                    <div class="invalid-feedback">
+                        Proszę wpisz Twoje Imie. Imie musi mieć przynajmniej 2 litery.
+                    </div>
+                </div>
+            </div>
+            <div class="col-md">
+                <div class="form-floating mb-3">
+                    <input minlength=2 class="form-control" asp-for="Surname" placeholder="Nazwisko" required />
+                    <label asp-for="Surname">Nazwisko</label>
+                    <div class="invalid-feedback">
+                        Proszę wpisz Twoje Nazwisko. Nazwisko musi mieć przynajmniej 2 litery.
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    </div>
+
+        <div class="form-floating mb-3">
+            <input pattern="[^@@\s]+@@[^@@\s]+\.[^@@\s]+" class="form-control" asp-for="Email" placeholder="example@gmail.com" required />
+            <label asp-for="Email">Twój email</label>
+            <div class="invalid-feedback">
+                Podaj prawidłowy adres email.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" pattern="^[0-9]{3}-[0-9]{3}-[0-9]{3}$" class="form-control" asp-for="Phone" placeholder="Telefon" required />
+            <label asp-for="Phone">Telefon</label>
+            <div class="invalid-feedback">
+                Podaj prawidłowy numer telefonu jak xxx-xxx-xxx.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input min=10 max=80 step=1 type="number" class="form-control" asp-for="Age" placeholder="Twój wiek" required />
+            <label asp-for="Age">Wiek</label>
+            <div class="invalid-feedback">
+                Podaj prawidłowy wiek między 10 a 80 lat.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" type="password" class="form-control" asp-for="Password" placeholder="Hasło" required />
+            <label asp-for="Password">Hasło</label>
+            <div class="invalid-feedback">
+                Hasło musi zawierać przynajmniej jedna cyfra, jedna duża litera i jedna mała litera.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" asp-for="PasswordCheck" placeholder="Powtórz Hasło" required />
+            <label asp-for="PasswordCheck">Powtórz hasło</label>
+            <div class="invalid-feedback">
+                Oba hasła muszą być takie same.
+            </div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <select class="form-control" asp-for="City"
+                    asp-items="Html.GetEnumSelectList<Form.Cities>()" required>
+                <option value="">Wybierz miasto</option>
+            </select>
+            <label asp-for="City">Miasto</label>
+            <div class="invalid-feedback" asp-validation-for="PasswordCheck">
+                Wybierz miasto
+            </div>
+        </div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
-    <div>
-    </div>
-</form>
+        <div>
+        </div>
+    </form>
+</div>
 
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
